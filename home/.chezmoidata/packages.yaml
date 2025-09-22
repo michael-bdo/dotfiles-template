@@ -1,0 +1,113 @@
+packages:
+  darwin:
+    brews:
+      - git
+      - curl
+      - obsidian
+      - direnv
+  linux:
+    dnfs:
+      - epel-release
+      - git
+      - git-delta
+      - delta
+      - curl
+      - bash
+      - zsh
+      - bat
+      - unzip
+      - jq
+      - ncdu
+    apts:
+      - git
+      - git-delta
+      - delta
+      - curl
+      - bash
+      - unzip
+      - jq
+      - ncdu
+      - direnv
+    flatpak:
+      - com.github.tchx84.Flatseal
+      - com.gitlab.davem.ClamTk
+      - com.yubico.yubioath
+      - org.cryptomator.Cryptomator
+      - org.flameshot.Flameshot
+      - org.keepassxc.KeePassXC
+  windows:
+     powershell:
+       - Posh-Git
+       - Terminal-Icons
+       - PsReadLine
+       - Get-WHOIS
+     winget:
+       - JanDeDobbeleer.OhMyPosh
+       - Git.Git
+       - Microsoft.PowerShell
+       - Microsoft.VisualStudioCode
+       - twpayne.chezmoi
+       - Obsidian.Obsidian
+       - OpenWhisperSystems.Signal
+       - Greenshot.Greenshot
+       - direnv.direnv
+       - Warrensbox.TerraformSwitcher
+     msstore:
+     pmode:
+        winget:
+          - Bitwarden.CLI
+          - Discord.Discord
+          - Valve.Steam
+          - xpipe-io.xpipe
+          - GuinpinSoft.MakeMKV
+          - Plex.Plex
+     ptxmode:
+        winget:
+          - 1password-cli
+          - Microsoft.AzureCLI
+          - xpipe-io.xpipe
+          - Amazon.AWSCLI
+          - Amazon.SessionManagerPlugin
+          - TablePlus.TablePlus
+          - TheDocumentFoundation.LibreOffice
+          - Postman.Postman
+     oagmode:
+        winget:
+          - Bitwarden.CLI
+          - Microsoft.Graph
+          - TablePlus.TablePlus
+extensions:
+  darwin:
+    vscode:
+      - mhutchie.git-graph
+      - arturbelico.code-sum-up
+      - mkhl.direnv
+      - eamodio.gitlens
+      - hashicorp.terraform
+      - GitHub.copilot
+      - timonwong.shellcheck
+      - emmanuelbeziat.vscode-great-icons
+      - redhat.vscode-xml
+      - redhat.vscode-yaml
+  linux:
+    vscode:
+      - mhutchie.git-graph
+      - arturbelico.code-sum-up
+      - mkhl.direnv
+      - eamodio.gitlens
+      - hashicorp.terraform
+      - GitHub.copilot
+      - timonwong.shellcheck
+      - emmanuelbeziat.vscode-great-icons
+      - redhat.vscode-xml
+      - redhat.vscode-yaml
+  windows:
+    vscode:
+      - ms-vscode-remote.remote-wsl
+      - mhutchie.git-graph
+      - arturbelico.code-sum-up
+      - ClemensPeters.format-json
+      - redhat.vscode-xml
+      - GitHub.copilot
+      - GitHub.copilot-chat
+      - codezombiech.gitignore

@@ -1,0 +1,6 @@
+README.md
+install.sh
+.config/chezmoi/chezmoi.toml
+.ssh/config*
+.ssh/authorized_keys*
+.ssh/known_hosts*

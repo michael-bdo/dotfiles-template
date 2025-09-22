@@ -1,0 +1,38 @@
+{{- /*
+{{ if eq .chezmoi.os "windows" -}}
+{{ range .packages.windows.powershell -}}
+Install-PSResource {{ . | quote }} -Scope CurrentUser
+{{ end -}}
+
+{{ range .packages.windows.winget -}}
+winget install --source winget --accept-package-agreements --uninstall-previous {{ . | quote }}
+{{ end -}}
+
+{{ if eq .ptxmode true }}
+{{ range .packages.windows.ptxmode.winget -}}
+winget install --source winget --accept-package-agreements --uninstall-previous {{ . | quote }}
+{{ end -}}
+{{ end }}
+
+{{ if eq .pmode true }}
+{{ range .packages.windows.pmode.winget -}}
+winget install --source winget --accept-package-agreements --uninstall-previous {{ . | quote }}
+{{ end -}}
+{{ end }}
+
+{{ if eq .oagmode true }}
+{{ range .packages.windows.oagmode.winget -}}
+winget install --source winget --accept-package-agreements --uninstall-previous {{ . | quote }}
+{{ end -}}
+{{ end }}
+
+{{ range .packages.windows.msstore -}}
+winget install --source msstore --accept-package-agreements --uninstall-previous {{ . | quote }}
+{{ end -}}
+
+{{ range .extensions.windows.vscode }}
+code --force --install-extension {{ . | quote }}
+{{ end }}
+
+{{ end -}}
+*/ -}}

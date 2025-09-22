@@ -1,0 +1,221 @@
+### https://www.chezmoi.io/reference/special-files/chezmoiexternal-format/
+{{- if eq .chezmoi.os "linux" -}}
+
+# chezmoi
+[".local/bin/chezmoi"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "twpayne/chezmoi" (printf "chezmoi_*_linux_amd64.tar.gz") | quote }}
+  executable = true
+  refreshPeriod = "720h"
+  path = "chezmoi"
+
+# atuin
+[".local/bin/atuin"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "atuinsh/atuin" "atuin-x86_64-unknown-linux-gnu.tar.gz" | quote }}
+  refreshPeriod = "720h"
+  stripComponents = 1
+  path = "atuin"
+
+# k9s
+[".local/bin/k9s"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "derailed/k9s" "k9s_Linux_amd64.tar.gz" | quote }}
+  refreshPeriod = "720h"
+  executable = true
+  path = "k9s"
+
+# helm
+{{- $helmVersion := ((gitHubLatestRelease "helm/helm").TagName) | trimPrefix "v" }}
+[".local/bin/helm"]
+  type = "archive-file"
+  refreshPeriod = "720h"
+  url = "https://get.helm.sh/helm-v{{ $helmVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+  stripComponents = 1
+  path = "helm"
+
+# clusterctl
+{{- $clusterctlVersion := "v1.10.5" }}
+[".local/bin/clusterctl"]
+  type = "file"
+  url = {{ gitHubReleaseAssetURL "kubernetes-sigs/cluster-api" $clusterctlVersion (printf "clusterctl-%s-%s" .chezmoi.os .chezmoi.arch) | quote }}
+  refreshPeriod = "720h"
+  executable = true
+
+# kubectl
+[".local/bin/kubectl"]
+  type = "file"
+  url = 'https://dl.k8s.io/release/{{ output "curl" "-L" "-s" "https://dl.k8s.io/release/stable.txt" | trim }}/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl'
+  executable = true
+  refreshPeriod = "720h"
+
+# starship
+[".local/bin/starship"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "starship/starship" "starship-i686-unknown-linux-musl.tar.gz" | quote }}
+  refreshPeriod = "720h"
+  executable = true
+  path = "starship"
+
+# age
+[".local/bin/age"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "FiloSottile/age" (printf "age-*-%s-%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
+  executable = true
+  path = "age/age"
+
+# age-keygen
+[".local/bin/age-keygen"]
+  type = "archive-file"
+  url = {{ gitHubLatestReleaseAssetURL "FiloSottile/age" (printf "age-*-%s-%s.tar.gz" .chezmoi.os .chezmoi.arch) | quote }}
+  executable = true
+  path = "age/age-keygen"
+
+# age-plugin-yubikey
+{{- $apyVer := (gitHubLatestRelease "str4d/age-plugin-yubikey").TagName }}
+[".local/bin/age-plugin-yubikey"]
+  type = "archive-file"
+  url = "https://github.com/str4d/age-plugin-yubikey/releases/download/{{ $apyVer }}/age-plugin-yubikey-{{ $apyVer }}-x86_64-{{ .chezmoi.os }}.tar.gz"
+  stripComponents = 1
+  refreshPeriod = "720h"
+  executable = true
+  path = "age-plugin-yubikey"
+
+# ksops (kustomize-sops)
+{{- $ksopsVer := (gitHubLatestRelease "viaduct-ai/kustomize-sops").TagName }}
+[".local/bin/ksops"]
+  type = "archive-file"
+  url = "https://github.com/viaduct-ai/kustomize-sops/releases/download/{{ $ksopsVer }}/ksops_{{ $ksopsVer | trimPrefix "v" }}_{{ .chezmoi.os | title }}_x86_64.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  path = "ksops"
+
+# kubeseal
+{{- $kubesealVer := (gitHubLatestRelease "bitnami-labs/sealed-secrets").TagName }}
+[".local/bin/kubeseal"]
+  type = "archive-file"
+  url = "https://github.com/bitnami-labs/sealed-secrets/releases/download/{{ $kubesealVer }}/kubeseal-{{ $kubesealVer | trimPrefix "v" }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  path = "kubeseal"
+
+# kustomize
+{{- $kustVer := (gitHubLatestRelease "kubernetes-sigs/kustomize").TagName | replaceAllRegex "kustomize/" "" }}
+[".local/bin/kustomize"]
+  type = "archive-file"
+  url = "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F{{ $kustVer }}/kustomize_{{ $kustVer }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  path = "kustomize"
+
+# rancher CLI
+{{- $rancherVer := (gitHubLatestRelease "rancher/cli").TagName }}
+[".local/bin/rancher"]
+  type = "archive-file"
+  url = "https://github.com/rancher/cli/releases/download/{{ $rancherVer }}/rancher-{{ .chezmoi.os }}-{{ .chezmoi.arch }}-{{ $rancherVer }}.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  stripComponents = 1
+  path = "rancher-{{ $rancherVer }}/rancher"
+
+# sops
+{{- $sopsVer := (gitHubLatestRelease "getsops/sops").TagName }}
+[".local/bin/sops"]
+  type = "file"
+  url = "https://github.com/getsops/sops/releases/download/{{ $sopsVer }}/sops-{{ $sopsVer }}.{{ .chezmoi.os }}.{{ .chezmoi.arch }}"
+  refreshPeriod = "720h"
+  executable = true
+
+# topgrade
+{{- $topgradeVer := (gitHubLatestRelease "topgrade-rs/topgrade").TagName }}
+[".local/bin/topgrade"]
+  type = "archive-file"
+  url = "https://github.com/topgrade-rs/topgrade/releases/download/{{ $topgradeVer }}/topgrade-{{ $topgradeVer }}-x86_64-unknown-{{ .chezmoi.os }}-gnu.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  path = "topgrade"
+
+# velero
+{{- $veleroVer := (gitHubLatestRelease "vmware-tanzu/velero").TagName }}
+[".local/bin/velero"]
+  type = "archive-file"
+  url = "https://github.com/vmware-tanzu/velero/releases/download/{{ $veleroVer }}/velero-{{ $veleroVer }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  stripComponents = 1
+  path = "velero"
+
+# fontawesome
+[".local/share/fonts"]
+  type = "archive"
+  url = {{ gitHubLatestReleaseAssetURL "FortAwesome/Font-Awesome" (printf "fontawesome-free-*-desktop.zip") | quote }}
+  exact = true
+  stripComponents = 2
+  refreshPeriod = "720h"
+  include = ["**/otfs/Font*.otf"]
+
+# vim-colors-solarized
+[".vim/colors/solarized.vim"]
+  type = "file"
+  url = "https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim"
+  refreshPeriod = "720h"
+
+# hadolint
+{{- $hadolintVer := (gitHubLatestRelease "hadolint/hadolint").TagName }}
+[".local/bin/hadolint"]
+  type = "file"
+  url = "https://github.com/hadolint/hadolint/releases/download/{{ $hadolintVer }}/hadolint-Linux-x86_64"
+  refreshPeriod = "720h"
+  executable = true
+
+# hcloud (Hetzner)
+{{- $hcloudVer := (gitHubLatestRelease "hetznercloud/cli").TagName }}
+[".local/bin/hcloud"]
+  type = "archive-file"
+  url = "https://github.com/hetznercloud/cli/releases/download/{{ $hcloudVer }}/hcloud-linux-amd64.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  path = "hcloud"
+
+# kind
+{{- $kindVer := (gitHubLatestRelease "kubernetes-sigs/kind").TagName }}
+[".local/bin/kind"]
+  type = "file"
+  url = "https://github.com/kubernetes-sigs/kind/releases/download/{{ $kindVer }}/kind-linux-amd64"
+  refreshPeriod = "720h"
+  executable = true
+
+# mc (MinIO Client)
+{{- $mcVer := (gitHubLatestRelease "minio/mc").TagName }}
+[".local/bin/mc"]
+  type = "file"
+  url = "https://dl.min.io/client/mc/release/linux-amd64/mc.{{ $mcVer }}"
+  refreshPeriod = "720h"
+  executable = true
+
+# git-credential-manager
+{{- $gitCredentialManagerTag := (gitHubLatestRelease "git-ecosystem/git-credential-manager").TagName }}
+{{- $gitCredentialManagerVer := $gitCredentialManagerTag | trimPrefix "v" }}
+[".local/share/gcm"]
+  type = "archive"
+  url = "https://github.com/git-ecosystem/git-credential-manager/releases/download/{{ $gitCredentialManagerTag }}/gcm-linux_amd64.{{ $gitCredentialManagerVer }}.tar.gz"
+  refreshPeriod = "1720h68h"
+
+# gomplate
+{{- $gomplateVer := (gitHubLatestRelease "hairyhenderson/gomplate").TagName }}
+[".local/bin/gomplate"]
+  type = "file"
+  url = "https://github.com/hairyhenderson/gomplate/releases/download/{{ $gomplateVer }}/gomplate_{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+  refreshPeriod = "720h"
+  executable = true
+
+# cattle-drive (Rancher)
+{{- $cattleDriveVer := (gitHubLatestRelease "rancherlabs/cattle-drive").TagName }}
+[".local/bin/cattle-drive"]
+  type = "archive-file"
+  url = "https://github.com/rancherlabs/cattle-drive/releases/download/{{ $cattleDriveVer }}/cattle-drive_Linux_x86_64.tar.gz"
+  refreshPeriod = "720h"
+  executable = true
+  path = "cattle-drive"
+
+{{- end -}}

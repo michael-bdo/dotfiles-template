@@ -1,0 +1,30 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+
+# code="flatpak run com.visualstudio.code"
+code="/usr/bin/code"
+
+echo "[-] Updating packages [-]"
+
+{{- if eq .chezmoi.osRelease.id "fedora" }}
+{{- range .packages.linux.dnfs }}
+sudo dnf install -y {{ . | quote }}
+{{- end }}
+{{- else if (eq .chezmoi.osRelease.id "debian" "ubuntu") }}
+sudo apt update
+{{- range .packages.linux.apts }}
+sudo apt install -y {{ . | quote }}
+{{- end }}
+{{- end }}
+
+{{- /*
+{{- range .extensions.linux.vscode }}
+$code --force --install-extension {{ . | quote }}
+{{- end }}
+
+{{- range .packages.linux.flatpak }}
+flatpak install -y {{ . | quote }}
+{{- end }}
+*/ -}}
+
+{{- end -}}

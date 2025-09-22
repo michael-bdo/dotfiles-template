@@ -1,0 +1,37 @@
+### https://www.chezmoi.io/reference/templates/variables/
+
+encryption = "age"
+
+[age]
+  identity   = "KEYTILE.TXT"
+  useBuiltinAge = true
+
+recipient = "PUBLICAGEKEY"
+
+[data]
+{{- if eq .chezmoi.username "myUsername" }}
+  name = "{{ promptString "Wie heißt du?" "NAME" }}"
+  email = "{{ promptString "Was ist deine Git-E-Mail?" "EMAIL" }}"
+  signingkey = "{{ promptString "Pfad zum Signing-Key?" "KEY.pub" }}"
+{{- else }}
+  name = "{{ promptString "Wie heißt du?" "NAME" }}"
+  email = "{{ promptString "Was ist deine Git-E-Mail?" "EMAIL" }}"
+  signingkey = "{{ promptString "Pfad zum Signing-Key?" | trim }}"
+{{- end }}
+
+[edit]
+  command = "code"
+  args = ["--wait"]
+
+[diff]
+  # Die folgenden zwei Zeilen entfernen oder auskommentieren
+  # command = "code"
+  # args = ["--wait", "--diff"]
+
+  # Stattdessen einen Pager aktivieren
+  pager = "delta"
+  exclude = ["scripts"]
+
+[git]
+  autoCommit = true
+  autoPush = true

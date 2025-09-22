@@ -1,0 +1,37 @@
+{{- $signingkey := .signingkey | trim -}}
+
+[user]
+  name = {{ .name | quote }}
+  email = {{ .email | quote }}
+{{- if $signingkey }}
+  signingkey = {{ $signingkey | quote }}
+{{- end }}
+
+[diff]
+  tool = code
+
+[difftool "code"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
+[pull]
+  rebase = true
+
+[mergetool "code"]
+  cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[diff "sopsdiffer"]
+  textconv = sops -d --config /dev/null
+
+[credential "helperselector"]
+  selected = manager
+
+[credential]
+  helper = store
+
+{{if $signingkey }}
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+{{- end }}
